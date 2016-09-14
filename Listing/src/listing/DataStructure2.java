@@ -18,9 +18,8 @@ public class DataStructure2<T> {
     private int next = 0;
     private T[] data;
     public int size = 100;
-    Listing lst = new Listing();   
     public String newNameAge =" ";
-    
+    Listing lst = new Listing();  
     
     public DataStructure2(){
     this(100);
@@ -34,7 +33,7 @@ public class DataStructure2<T> {
 
     public void addListing(){
         
-        data[next++] = lst.newNameAge;
+        data[next++] = newNameAge;
     }
 
     public void showAllListings(){
