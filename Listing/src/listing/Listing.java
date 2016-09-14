@@ -9,9 +9,16 @@ public class Listing {
     public String getName = " ";
     public String nameAge =" ";
     
-    DataStructure2 struct = new DataStructure2();
+    DataStructure2 dStruct = new DataStructure2();
             
-    public void input() {
+    public static void main(String[] args){
+        
+        Listing in = new Listing();
+        in.dataInput();
+    }
+    
+    
+    public void dataInput() {
         int listChoice = 0;
                
         do{ 
@@ -30,7 +37,7 @@ public class Listing {
                 setName();
                 setAge();
                 nameAndAge();
-                addPerson();
+                addPerson(nameAge);
             }
         
             else if (listChoice == 2 && getAge ==0){
@@ -38,24 +45,9 @@ public class Listing {
             }    
         
             else if (listChoice ==2 && getAge !=0) {
-                struct.showAllListings();
+                dStruct.showAllListings();
             }
             
-          /*  else if (listChoice == 3 && getAge ==0){
-                System.out.println("No records, try again");
-            }    
-        
-            else if (listChoice ==3 && getAge !=0) {
-                eraseRecords();
-            }
-            
-            else if (listChoice ==4 && getAge ==0) {
-                System.out.println("No records, try again");
-            }
-            
-            else if (listChoice ==4 && getAge != 0) {
-                modifyRecords();
-            }*/
             else if (listChoice ==3){
                 System.out.println("Goodbye");
                 System.exit(0);
@@ -81,51 +73,9 @@ public class Listing {
         nameAge = getName + ", " + getAge;
         return(nameAge);
     }
-    /*   
-    public void eraseRecords(){
-        System.out.print("Erasing record\n");   
-        getAge = 0;
-        getName = " ";
-   
-    }
-    public void modifyRecords(){
-        int listChoice2 = 0;
-            
-            System.out.print("Please select (1)Name or (2)Age to modify: ");
-            
-            Scanner in = new Scanner(System.in);
-            listChoice2 = in.nextInt();
-            System.out.println("You entered : "+ listChoice2);
-                if (listChoice2 == 1){
-                    setName(); 
-                }
-                else if (listChoice2 ==2){
-                    setAge();
-                } 
-                else if (listChoice2 != 1 || listChoice2 != 2){
-                    System.out.print("Invalid selection, returning to Main menu.\n\n");
-                    return;    
-            }
-    }
-    */
     
-    public void addPerson(){
-        struct.newNameAge = nameAge;
-        struct.addListing();
+    public void addPerson(String nameAge){
+        dStruct.newNameAge = nameAge;
+        dStruct.addListing(nameAge);
     }
-    
-    public void main(String[] args){
-        
-        input();
-    }
-
 }
-
-
-
-
-        
-        
-        
-    
-    
