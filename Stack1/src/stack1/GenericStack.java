@@ -11,17 +11,17 @@ public class GenericStack<E> {
     private E[] data;
     private int top;
     private int size;
-    public int sizeT = 0;
+    
     public int popData = 0;
     public String newFoo = "";
         
     public GenericStack() {
-        top = -1;
+        top = 0;
         size = 100;
         data = (E[]) new Object[100];
     }
     public GenericStack (int n) {
-        top = -1;
+        top = 0;
         size = n;
         data = (E[]) new Object[n];
     }
@@ -29,18 +29,18 @@ public class GenericStack<E> {
     
     public void push(E newFoo){
         data[top++] = newFoo;
-        sizeT++;
+        System.out.println(data[top-1] + "\n");
+        
     }
     public E pop() {
         int topLocation;
         topLocation = top;
         top = top - 1;
-        sizeT--;
         return data[topLocation];
     }
     public void showAll() {
-        for(int i = top; i >= 0; i --)
-            System.out.println(data[i].toString());
+        for(int i = top-1; i >= 0; i --)
+            System.out.println(data[i]);
     }
     
 }

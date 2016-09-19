@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class MazeSolver {
    int x = 0;
    int y = 0;
-   public String foo = "";        
+   public String foo = "";
+   int sizeT = 0;
     
    
    public static void main(String[] args) {
@@ -37,33 +38,36 @@ public class MazeSolver {
                 scanner = new Scanner(System.in);
                 y = scanner.nextInt();
                 
-                System.out.println("Coordinates are " + x + ", " + y);
+                System.out.println("Coordinates are " + x + ", " + y + "\n");
                 
                 fooGen();
                 newPush();
+                sizeT++;
                 }
-                else if (listChoice == 2 && Stack.sizeT ==0){
+                else if (listChoice == 2 && sizeT ==0){
                     System.out.println("No records, try again\n");
                 }    
 
-                else if (listChoice ==2 && Stack.sizeT !=0) {
-                    System.out.println("Current stack count is: " + Stack.sizeT + "\n");
+                else if (listChoice ==2 && sizeT !=0) {
+                    System.out.println("Current stack count is: " + sizeT + "\n");
                 }
                 
-                else if (listChoice == 3 && Stack.sizeT ==0){
+                else if (listChoice == 3 && sizeT ==0){
                     System.out.println("No records, try again\n");
                 }    
 
-                else if (listChoice ==3 && Stack.sizeT !=0) {
+                else if (listChoice ==3 && sizeT !=0) {
+                    System.out.println(sizeT);
                     Stack.showAll();
                 }
                 
-                else if (listChoice ==4 && Stack.sizeT == 0){
+                else if (listChoice ==4 && sizeT == 0){
                     System.out.println("No records, try again\n");
                 }
-                else if (listChoice ==4 && Stack.sizeT != 0){
+                else if (listChoice ==4 && sizeT != 0){
                     System.out.println("Popping Data (" + Stack.popData +")off the Stack.\n");
                     Stack.pop();
+                    sizeT--;
                 }
                 else if (listChoice ==5){
                     System.out.println("Goodbye");
