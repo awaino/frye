@@ -7,9 +7,8 @@ import java.util.Scanner;
 public class MazeSolver {
    int x = 0;
    int y = 0;
-   public String foo = "";
-   int sizeT = 0;
-    
+   public String coords = "";
+   GenericStack Stack = new GenericStack();
    
    public static void main(String[] args) {
         MazeSolver maze = new MazeSolver();
@@ -18,15 +17,16 @@ public class MazeSolver {
     
         public void menu(){
         //int Coordinates[][] = new int [10][10];
-        GenericStack Stack = new GenericStack();
+        
         int listChoice = 0;     
         do{
         System.out.println("Welcome to the Stack Tester.");
         System.out.println("Press 1 to enter coordinates. ");
         System.out.println("Press 2 to get the Stack count. ");
-        System.out.println("Press 3 to show stack contents. ");
-        System.out.println("Press 4 to remove the top stack item. ");
-        System.out.print("Press 5 to Exit\nChoice? ");
+        System.out.println("Press 3 to show stack top item. ");
+        System.out.println("Press 4 to show all stack items. ");
+        System.out.println("Press 5 to remove the top stack item. ");
+        System.out.print("Press 6 to Exit\nChoice? ");
         Scanner scanner = new Scanner(System.in);
         listChoice = scanner.nextInt();
                 
@@ -40,51 +40,55 @@ public class MazeSolver {
                 
                 System.out.println("Coordinates are " + x + ", " + y + "\n");
                 
-                fooGen();
+                setCoordinates();
                 newPush();
-                sizeT++;
                 }
-                else if (listChoice == 2 && sizeT ==0){
+                else if (listChoice == 2 && Stack.top2 == -1){
                     System.out.println("No records, try again\n");
                 }    
 
-                else if (listChoice ==2 && sizeT !=0) {
-                    System.out.println("Current stack count is: " + sizeT + "\n");
+                else if (listChoice ==2 && Stack.top2 !=-1) {
+                    Stack.sizeT();
                 }
                 
-                else if (listChoice == 3 && sizeT ==0){
+                else if (listChoice == 3 && Stack.top2 == -1){
                     System.out.println("No records, try again\n");
                 }    
 
-                else if (listChoice ==3 && sizeT !=0) {
-                    System.out.println(sizeT);
-                    Stack.showAll();
-                }
+                else if (listChoice ==3 && Stack.top2 !=-1) {
+                Stack.peek();
                 
-                else if (listChoice ==4 && sizeT == 0){
+                }
+                else if (listChoice == 4 && Stack.top2 == -1){
+                    System.out.println("No records, try again\n");
+                }    
+
+                else if (listChoice ==4 && Stack.top2 !=-1) {
+                Stack.showAll();
+                
+                }
+                else if (listChoice ==5 && Stack.top2 == -1){
                     System.out.println("No records, try again\n");
                 }
-                else if (listChoice ==4 && sizeT != 0){
-                    System.out.println("Popping Data (" + Stack.popData +")off the Stack.\n");
+                else if (listChoice ==5 && Stack.top2 != -1){
                     Stack.pop();
-                    sizeT--;
+                    System.out.println("\n");
                 }
-                else if (listChoice ==5){
+                else if (listChoice ==6){
                     System.out.println("Goodbye");
                     System.exit(0);
                 }
-            }while (listChoice !=5);
+            }while (listChoice !=6);
         }       
-        public String fooGen(){
-            foo = (x + ", " + y);
-            return(foo);
-    }
+        public String setCoordinates(){
+            coords = (x + "," + y);
+            return(coords);
+            }
 
         public void newPush() {
-        GenericStack Stack = new GenericStack();
-        
-        Stack.newFoo = foo;
-        Stack.push(foo);
+                
+        Stack.sCoords = coords;
+        Stack.push(coords);
         }
         
 }        

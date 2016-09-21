@@ -7,40 +7,66 @@ package stack1;
 
 
 public class GenericStack<E> {
-    MazeSolver Maze = new MazeSolver();
+    
     private E[] data;
     private int top;
     private int size;
+    public int top2 = top;
+
+    public String sCoords = "";
     
-    public int popData = 0;
-    public String newFoo = "";
-        
     public GenericStack() {
-        top = 0;
+        top = -1;
         size = 100;
         data = (E[]) new Object[100];
     }
     public GenericStack (int n) {
-        top = 0;
+        top = -1;
         size = n;
         data = (E[]) new Object[n];
     }
 
     
-    public void push(E newFoo){
-        data[top++] = newFoo;
-        System.out.println(data[top-1] + "\n");
-        
+    public boolean push(E sCoords){
+        if (top == size -1)
+            return false;
+        else {
+            top++;
+            data[top] = sCoords;
+            System.out.println(data[top] + " Popped on the stack.\n");
+            return true;
+        }   
     }
+    public E peek(){
+     
+        System.out.println("Top = " + data[top].toString() + "\n");
+        
+        return null;
+    }
+    
     public E pop() {
         int topLocation;
-        topLocation = top;
-        top = top - 1;
-        return data[topLocation];
+        if(top == -1)
+            return null;
+        else {
+            topLocation = top;
+            top--;
+            return data[topLocation];
+        }
+        
     }
-    public void showAll() {
-        for(int i = top-1; i >= 0; i --)
+    public void sizeT(){
+        int t = 0;
+        t= top +1;
+        System.out.println("Total items in the stack = " + t + "\n");
+    }
+    
+    
+    public int showAll() {
+        for(int i = top; i >= 0; i --)
             System.out.println(data[i]);
-    }
+        return(top);
+    } 
+    
     
 }
