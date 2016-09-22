@@ -5,25 +5,25 @@ package stack1;
 /**
  *
  * @author awain
- *//*
+ */
 public class MazeSquare {
 
-    //MazeSolver maze = new MazeSolver();
+    MazeSolver maze = new MazeSolver();
     
     // set the default wall state to no walls.
     private boolean[] wall = {false, false, false, false};
     private boolean visited;
     private boolean abandoned;
-   // private Coordinate myPosition;
+    private Coordinate myPosition;
 
     // new squares are built without walls
-   // public MazeSquare(Coordinate p) {
+    public MazeSquare(Coordinate p) {
         myPosition = p;
         this.clear();
     }
 
     // this might be nice to have....
-   // public MazeSquare(Coordinate p, boolean[] wallSet) {
+    public MazeSquare(Coordinate p, boolean[] wallSet) {
         this(p);
         for (int i = 0; i < wallSet.length && i < wall.length; i++) {
             wall[i] = wallSet[i];
@@ -32,7 +32,7 @@ public class MazeSquare {
 
     public void toggleWall(Direction dir) {
         wall[dir.value()] = !wall[dir.value()];
-    }
+       }
 
     public enum Direction {
     NORTH(0),
@@ -51,34 +51,28 @@ public class MazeSquare {
         
         }
     }
-    public void getWall (Direction dir){
-        
-    }
+    public boolean getWall (Direction dir){ 
     
-    public boolean isVisited(){
-        
-    //}
-    
-    public void visit(){
-        
     }
 
-    public boolean isAbandoned(){
-        
-        
-    //}
-
-    public void abandon(){
-        
-    }
-
-    public void clear(){
-        
-    }
     
-    public boolean Equals(MazeSquare other) {
-        
-    }*/
+    public boolean isVisited(){ throw new RuntimeException("Unimplmemented."); }
+
+    
+    public void visit(){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public boolean isAbandoned(){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public void abandon(){ throw new RuntimeException("Unimplmemented."); }
+
+    public void clear(){ throw new RuntimeException("Unimplmemented."); }
+    
+    public Coordinate getPosition() { throw new RuntimeException("Unimplmemented."); }
+    
+    public boolean Equals(MazeSquare other) { throw new RuntimeException("Unimplmemented."); }
+
 
 
 /*The methods include a pair of constructors. If the one argument constructor 
@@ -92,5 +86,4 @@ to false. This is necessary to reset the maze once we've constructed it. The
 second is an Equals method. Two MazeSquare objects are equal if their positions
 are equal (regardless of walls, etc.)
 */
-//*
-//}
+}

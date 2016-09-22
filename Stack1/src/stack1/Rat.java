@@ -9,74 +9,59 @@ package stack1;
  *
  * @author awain
  */
-/*public class Rat {
-    
+public class Rat {
+    MazeSolver Maze = new MazeSolver();   
     private MazeSquare [][] square;
     private Coordinate startPosition;
     private Coordinate finishPosition;
-    private in rows;
+    private int rows;
     private int cols;
     
-    public Maze(int rows, int cols){
-        
-    }
+    public Maze(int rows, int cols){ throw new RuntimeException("Unimplmemented."); }
 
-    public MazeSquare getSquareAt(Coordinate p){
-        
-    }
 
-    public void visit (Coordinate p){
-        
-    }
+    public MazeSquare getSquareAt(Coordinate p){ throw new RuntimeException("Unimplmemented."); }
 
-    public void abandon (Coordinate p){
-        
-    }
 
-    public Coordinate getStart(){
-        
-    }
+    public void visit (Coordinate p){ throw new RuntimeException("Unimplmemented."); }
 
-    public Coordinate getFinish(){
-        
-    }
 
-    public Coordinate northOf(Coordinate p){
-        
-    }
+    public void abandon (Coordinate p){ throw new RuntimeException("Unimplmemented."); }
 
-    public Coordinate southOf (Coordinate p){
-        
-    }
+
+    public Coordinate getStart(){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public Coordinate getFinish(){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public Coordinate northOf(Coordinate p){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public Coordinate southOf (Coordinate p){ throw new RuntimeException("Unimplmemented."); }
+
     
-    public Coordinate eastOf(Coordinate p){
-        
-    }
-
-    public Coordinate westOf(Coordinate p){
-        
-    }
-
-    public boolean movePossible(Coordinate from, Coordinate to){
-        
-    }
-
-    public void clear(){
-        
-    }
-
-    public boolean validPosition(Coordinate p){
-        
-    }
-
-    private ArrayList<Coordinate> invisitedNeighbors(Coordinate p){
-        
-    }
-
-    private void generateMaze(){
-        
-    }
+    public Coordinate eastOf(Coordinate p){ throw new RuntimeException("Unimplmemented."); }
 
 
-}*/
+    public Coordinate westOf(Coordinate p){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public boolean movePossible(Coordinate from, Coordinate to){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public void clear(){ throw new RuntimeException("Unimplmemented."); }
+
+
+    public boolean validPosition(Coordinate p){ throw new RuntimeException("Unimplmemented."); }
+
+
+    private ArrayList<Coordinate> invisitedNeighbors(Coordinate p){ throw new RuntimeException("Unimplmemented."); }
+
+
+    private void generateMaze(){ throw new RuntimeException("Unimplmemented."); }
+
+
+
+}
 
