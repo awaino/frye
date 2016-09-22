@@ -4,7 +4,7 @@ import java.util.Scanner;
  *
  * @author awain
  */
-public class MazeSolver {
+public class MazeSolver{
    int x = 0;
    int y = 0;
    public String coords = "";
@@ -15,7 +15,7 @@ public class MazeSolver {
         maze.menu();
         }
     
-        public void menu(){
+        /*public void menu(){
         //int Coordinates[][] = new int [10][10];
         
         int listChoice = 0;     
@@ -79,12 +79,14 @@ public class MazeSolver {
                     System.exit(0);
                 }
             }while (listChoice !=6);
-        }       
+        } */      
+   
         public String setCoordinates(){
             coords = (x + "," + y);
             return(coords);
             }
 
+    
         public void newPush() {
                 
         Stack.sCoords = coords;

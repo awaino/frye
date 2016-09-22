@@ -12,10 +12,11 @@ public class MazeSquare {
     
     // set the default wall state to no walls.
     private boolean[] wall = {false, false, false, false};
-    private boolean visited;
-    private boolean abandoned;
-    private Coordinate myPosition;
-
+    private boolean visited; //and !visited
+    private boolean abandoned; //and !abandoned
+    private Coordinate myPosition; //(Row x, and Column y)
+    boolean[] defaultWallSet = {false, true, true, false}; // S, E walls up
+    
     // new squares are built without walls
     public MazeSquare(Coordinate p) {
         myPosition = p;
@@ -30,10 +31,15 @@ public class MazeSquare {
         }
     }
 
+    
+    
+    
     public void toggleWall(Direction dir) {
         wall[dir.value()] = !wall[dir.value()];
        }
-
+    //x=0, y=0 wall[dir.value(true, true, true, true)] = !wall[dir.value()];
+    //maze[i][j] = new MazeSquare(new Coordinate(i,j), defaultWallSet);
+    
     public enum Direction {
     NORTH(0),
     SOUTH(1),
@@ -52,27 +58,33 @@ public class MazeSquare {
         }
     }
     public boolean getWall (Direction dir){ 
-    
+    //Returns true if this square has a wall in the indicated direction.
     }
 
     
     public boolean isVisited(){ throw new RuntimeException("Unimplmemented."); }
-
+    //check for not abandoned = true then mark isVisited(x,y) once Visited = true 
+        if{myPosition = visited
+}
     
     public void visit(){ throw new RuntimeException("Unimplmemented."); }
-
+    //resets (x, y)abandoned to False, and visited to false after the maze generation so that the maze solver can work.
+    
 
     public boolean isAbandoned(){ throw new RuntimeException("Unimplmemented."); }
-
+    //Stack of coordinates visited that are dead ends?
 
     public void abandon(){ throw new RuntimeException("Unimplmemented."); }
-
+    //mark myPosition as abandon.  No moves available at myPosition.  Pop off the stack until myPosition has available move
+    
     public void clear(){ throw new RuntimeException("Unimplmemented."); }
+    //mark myPosition as clear
     
     public Coordinate getPosition() { throw new RuntimeException("Unimplmemented."); }
+    //get row x, column y
     
     public boolean Equals(MazeSquare other) { throw new RuntimeException("Unimplmemented."); }
-
+    //myPosition(row=x, column = y equals somthing (visited, abandoned)
 
 
 /*The methods include a pair of constructors. If the one argument constructor 
