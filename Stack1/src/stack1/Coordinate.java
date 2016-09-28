@@ -19,15 +19,18 @@ public class Coordinate {
         this.col = col;
     }
 
-    public boolean equals(Coordinate rhs) {
-        return (row == rhs.getRow() && col == rhs.getCol());
-    }
-
     public int getRow() {
         return row;
     }
 
     public int getCol() {
         return col;
+    }
+  
+    public boolean isEqual(Coordinate p){
+        if(this.col == p.getCol() && this.row == p.getRow())
+            return true;
+        else
+        return false;
     }
 }
