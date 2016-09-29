@@ -13,9 +13,9 @@ public class Main{
         Main maze = new Main();
         
         Scanner fromUser = new Scanner(System.in);
-        System.out.print("rows? ");
+        System.out.print("How many rows for the maze? \n");
         int r = fromUser.nextInt();
-        System.out.print("cols? ");
+        System.out.print("How many columns for the maze? \n");
         int c = fromUser.nextInt();
 
         Maze aMaze = new Maze(r, c);

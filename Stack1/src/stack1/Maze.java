@@ -10,8 +10,8 @@ public class Maze {
     private MazeSquare[][] square;
     private Coordinate startPos;
     private Coordinate finishPos;
-    private int numRows; //set variable up later
-    private int numCols; //set variable up later
+    private int numRows; 
+    private int numCols; 
       
     public Maze(int numRows, int numCols) {
         this.numCols = numCols;
@@ -21,26 +21,27 @@ public class Maze {
             for (int r = 0; r < numRows; r++){
                 for (int c = 0; c < numCols; c++){
                     square[r][c] = new MazeSquare(new Coordinate(r, c));
+                }   
+                
+                
+                    if (numRows == 0){
+                       square[0][numCols].toggleWall(Direction.WEST);
+                    }
+                    if (numCols == 0){
+                      square[numRows][0].toggleWall(Direction.NORTH);
                     }
                 }
-        this.clear();
+        //this.clear();
         
-        int c = (int)(Math.random() * numCols);
-        startPos = new Coordinate(0, c);
+        //int c = (int)(Math.random() * numCols);
+        startPos = new Coordinate(0, 2);
         
-        int j = (int)(Math.random() * numCols);
-        finishPos = new Coordinate(numRows - 1,j);
+        //int j = (int)(Math.random() * numCols);
+        finishPos = new Coordinate(5,4);
         
     }
     
-    public Coordinate getStart(){
-        return startPos;
-    }
-    
-    public Coordinate getFinish(){
-        return finishPos;
-    }
-    
+       
     public MazeSquare getSquareAt(Coordinate p){ 
     //Simple accessor method that returns the MazeSquare at the (r,c) position indicated by the provided Coordinate.
         return square[p.getRow()][p.getCol()];
@@ -82,13 +83,13 @@ public class Maze {
         if ((Math.abs(dist_col)==0)&&(Math.abs(dist_row)==0))return false;
         if ((Math.abs(dist_col)==1)&&(Math.abs(dist_row)==1))return false;
         
-        if (dist_col == -1)
-            return !(this.getSquareAt(from).getWall(Direction.SOUTH) || (this.getSquareAt(to).getWall(Direction.NORTH))); //south
-        if (dist_col == 1)
-            return !(this.getSquareAt(from).getWall(Direction.NORTH) || (this.getSquareAt(to).getWall(Direction.SOUTH))); //north
         if (dist_row == -1)
-            return !(this.getSquareAt(from).getWall(Direction.WEST) || (this.getSquareAt(to).getWall(Direction.EAST))); //west
+            return !(this.getSquareAt(from).getWall(Direction.SOUTH) || (this.getSquareAt(to).getWall(Direction.NORTH))); //south
         if (dist_row == 1)
+            return !(this.getSquareAt(from).getWall(Direction.NORTH) || (this.getSquareAt(to).getWall(Direction.SOUTH))); //north
+        if (dist_col == 1)
+            return !(this.getSquareAt(from).getWall(Direction.WEST) || (this.getSquareAt(to).getWall(Direction.EAST))); //west
+        if (dist_col == -1)
             return !(this.getSquareAt(from).getWall(Direction.EAST) || (this.getSquareAt(to).getWall(Direction.WEST))); //east
         
         return true;  //check this later
@@ -136,9 +137,10 @@ public class Maze {
         StringBuffer buf = new StringBuffer();
         // output the top
         for (int i = 0; i < numCols; i++)
+            //System.out.println(i);
             buf.append("__");
         buf.append("_\n");
-
+        
         // output the rows
         for (int i = 0; i < numRows; i++) {
             if (i != startPos.getRow()) {
@@ -146,14 +148,15 @@ public class Maze {
             } else {
                 buf.append(" ");
             }
-
-            for (int j = 0; j < numCols; j++) {
+            //System.out.println(i);
+                for (int j = 0; j < numCols; j++) {
                 if (square[i][j].getWall(Direction.SOUTH)) {
                     buf.append("_");
                 } else {
                     buf.append(" ");
                 }
-
+               // System.out.println(i);
+                //System.out.println(j);
                 if (square[i][j].getWall(Direction.EAST)) {
                     buf.append("|");
                 } else {
