@@ -27,12 +27,12 @@ public class GenericStack<E> {
     }
 
     
-    public boolean push(E sCoords){
+    public boolean push(E Coordinate){
         if (top == size -1)
             return false;
         else {
             top++;
-            data[top] = sCoords;
+            data[top] = Coordinate;
             System.out.println(data[top] + " Popped on the stack.\n");
             return true;
         }   

@@ -20,11 +20,14 @@ public class Main{
 
         Maze aMaze = new Maze(r, c);
         System.out.println(aMaze);
+        aMaze.genMaze();
+        
+        
     }
 
-
+    
    
-    public String setCoordinates(int r, int c){
+    /*public String setCoordinates(int r, int c){
         coords = (r + "," + c);
         return(coords);
         }
@@ -34,7 +37,7 @@ public class Main{
                 
         Stack.sCoords = coords;
         Stack.push(coords);
-        }
+        }*/
         
 }        
          

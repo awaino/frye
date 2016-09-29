@@ -37,7 +37,10 @@ public class MazeSquare {
     public boolean getWall (Direction dir){ 
         return wall[dir.value()];
     }
-
+    
+    public void setWall(Direction dir){
+      wall[dir.value()] = defaultWallSet[dir.value()];
+    }
     
     public boolean isVisited(){
     //check for not abandoned = true then mark isVisited(x,y) once Visited = true 

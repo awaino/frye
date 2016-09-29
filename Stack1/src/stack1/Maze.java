@@ -12,7 +12,8 @@ public class Maze {
     private Coordinate finishPos;
     private int numRows; 
     private int numCols; 
-      
+    GenericStack Stack = new GenericStack();
+    
     public Maze(int numRows, int numCols) {
         this.numCols = numCols;
         this.numRows = numRows;
@@ -21,9 +22,11 @@ public class Maze {
             for (int r = 0; r < numRows; r++){
                 for (int c = 0; c < numCols; c++){
                     square[r][c] = new MazeSquare(new Coordinate(r, c));
+                
+                    square[r][c].setWall(Direction.SOUTH);
+                    square[r][c].setWall(Direction.EAST);
+                
                 }   
-                
-                
                     if (numRows == 0){
                        square[0][numCols].toggleWall(Direction.WEST);
                     }
@@ -33,14 +36,21 @@ public class Maze {
                 }
         //this.clear();
         
-        //int c = (int)(Math.random() * numCols);
-        startPos = new Coordinate(0, 2);
+        int a = randRow();
+        int b = randRow();
         
-        //int j = (int)(Math.random() * numCols);
-        finishPos = new Coordinate(5,4);
-        
+        startPos = new Coordinate(a, 0);      
+        square[a][0].toggleWall(Direction.WEST);
+        finishPos = new Coordinate(b,numCols);
+        square[b][numCols-1].toggleWall(Direction.EAST);
     }
-    
+    public int randRow(){
+        int min = 0;
+        int max = numRows;
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max-min) +1) + min;
+        return randomNum;
+    }
        
     public MazeSquare getSquareAt(Coordinate p){ 
     //Simple accessor method that returns the MazeSquare at the (r,c) position indicated by the provided Coordinate.
@@ -94,8 +104,9 @@ public class Maze {
         
         return true;  //check this later
     }
-    private void genMaze(){
-        
+    public void genMaze(){
+        Stack.push(startPos);
+        Stack.peek();
     }
     
     private void clear() {
@@ -148,18 +159,18 @@ public class Maze {
             } else {
                 buf.append(" ");
             }
-            //System.out.println(i);
+            
                 for (int j = 0; j < numCols; j++) {
                 if (square[i][j].getWall(Direction.SOUTH)) {
                     buf.append("_");
                 } else {
                     buf.append(" ");
                 }
-               // System.out.println(i);
-                //System.out.println(j);
+               
                 if (square[i][j].getWall(Direction.EAST)) {
-                    buf.append("|");
-                } else {
+                        buf.append("|");
+                                        }
+                else {
                     if (j + 1 < numCols) {
                         if (square[i][j + 1].getWall(Direction.SOUTH)) {
                             buf.append("_");
