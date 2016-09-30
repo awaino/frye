@@ -33,4 +33,8 @@ public class Coordinate {
         else
         return false;
     }
+    public String toString(){
+        return "Row: " + this.row + ", Column: "+ this.col;
+    }
+
 }

@@ -33,7 +33,7 @@ public class GenericStack<E> {
         else {
             top++;
             data[top] = Coordinate;
-            System.out.println(data[top] + " Popped on the stack.\n");
+            System.out.println(Coordinate.toString() + " Popped on the stack.\n");
             return true;
         }   
     }

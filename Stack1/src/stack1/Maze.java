@@ -107,6 +107,9 @@ public class Maze {
     public void genMaze(){
         Stack.push(startPos);
         Stack.peek();
+        Coordinate p = startPos;
+        unvisitedNeighbors(p);
+        
     }
     
     private void clear() {
@@ -133,7 +136,7 @@ public class Maze {
             list.add(new Coordinate(r, c - 1));
         if (c < numCols - 1 && !square[r][c + 1].isVisited())
             list.add(new Coordinate(r, c + 1));
-
+        System.out.print(list);
         return list;
     }
 
