@@ -109,6 +109,7 @@ public class Maze {
         Stack.peek();
         Coordinate p = startPos;
         unvisitedNeighbors(p);
+        if (movePossible(p, list(r, c))
         
     }
     
