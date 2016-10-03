@@ -10,6 +10,7 @@ public class Maze {
     private MazeSquare[][] square;
     private Coordinate startPos;
     private Coordinate finishPos;
+    private Coordinate lastPos;
     private int numRows; 
     private int numCols; 
     GenericStack Stack = new GenericStack();
@@ -108,10 +109,163 @@ public class Maze {
         Stack.push(startPos);
         Stack.peek();
         Coordinate p = startPos;
-        unvisitedNeighbors(p);
-        if (movePossible(p, list(r, c))
+        System.out.println("Step 3: \n" + startPos);
+        System.out.println("Step 4: \n" + p);
+        //do
         
+            moveP(p);
+            
+        //while (p.getRow() != finishPos.getRow() && p.getCol() != finishPos.getCol());
+        System.out.println("Step 8: Current position is: " + p);
+        System.out.println("Step 9: Current finish position is: " + finishPos);
     }
+
+    public void moveP(Coordinate p){        
+        
+        ArrayList<Coordinate> unlist;
+        unlist = unvisitedNeighbors(p);
+        System.out.println("Step 5: " + unlist.size() + " available move locations.");
+        System.out.println("Step 6: " + unlist.get(0) + " is the first available location.");
+        System.out.println("Step 6.5: " + p + " is the current location.");
+       
+        //if under two moves available, no moves available
+        //pop the last coordinate and go back one spot.
+        if (unlist.size() < 1){
+            
+            Stack.pop();
+            abandonSquare(p);
+            p = lastPos;
+        }
+
+        //condition1 coordinates at the 4 corners.
+        //only 2 moves possible list 0,1
+        else if (unlist.size() == 2){
+            //System.out.println(unlist.size());
+            if (movePossible(p, (unlist.get(0)))) {
+                lastPos = p;
+                p = (unlist.get(0));
+                System.out.println("Step 7: " +p);
+                removeWalls(lastPos, p);
+                Stack.push(p);
+                Stack.peek();
+                visitSquare(p);
+            }
+            else if(movePossible(p, (unlist.get(1)))) {
+                lastPos = p;
+                p = (unlist.get(1));        
+                System.out.println("Step 7: " +p);
+                removeWalls(lastPos, p);        
+                Stack.push(p);
+                Stack.peek();
+                visitSquare(p);
+            }   
+        }
+        //condition2 coordinates on outside egde
+        //3 moves possible list 0,1,2
+        else if (unlist.size() == 3){
+            //System.out.println(unlist.size());
+            if (movePossible(p, (unlist.get(0)))) {
+            lastPos = p;
+            p = (unlist.get(0));
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            return;
+            }
+            if(movePossible(p, (unlist.get(1)))) {
+            lastPos = p;
+            p = (unlist.get(1));        
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);        
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            return;
+            }
+            if (movePossible(p, (unlist.get(2)))) {
+            lastPos = p;
+            p = (unlist.get(2));
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            
+            }
+        }
+        //condition3 inside coordinates
+        //4 moves possible list 0,1,2,3
+        else if(unlist.size() == 4){    
+            //System.out.println(unlist.size());
+            if (movePossible(p, (unlist.get(0)))) {
+            lastPos = p;
+            p = (unlist.get(0));
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            return;
+            }
+            if(movePossible(p, (unlist.get(1)))) {
+            lastPos = p;
+            p = (unlist.get(1));        
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);        
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            return;
+            }
+            if (movePossible(p, (unlist.get(2)))) {
+            lastPos = p;
+            p = (unlist.get(2));
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            return;
+            }
+            if (movePossible(p, (unlist.get(3)))) {
+            lastPos = p;
+            p = (unlist.get(3));        
+            System.out.println("Step 7: " +p);
+            removeWalls(lastPos, p);
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+            
+            } 
+        }
+    }
+    
+    private void removeWalls(Coordinate lastPos, Coordinate p){
+        
+        int dist_col= p.getCol() - lastPos.getCol();
+        int dist_row= p.getRow() - lastPos.getRow();
+        
+        if (dist_row == -1){
+            square[p.getCol()][p.getRow()].toggleWall(Direction.SOUTH);
+        }
+            
+        if (dist_row == 1) {
+            square[lastPos.getCol()][lastPos.getRow()].toggleWall(Direction.SOUTH);
+        }
+            
+        if (dist_col == 1) {
+            square[lastPos.getCol()][lastPos.getRow()].toggleWall(Direction.EAST);
+        }
+            
+        if (dist_col == -1) {
+            square[p.getCol()][p.getRow()].toggleWall(Direction.EAST);
+        }
+            
+    }
+    
+    
     
     private void clear() {
         for (int i = 0; i < numRows; i++) {
@@ -137,7 +291,7 @@ public class Maze {
             list.add(new Coordinate(r, c - 1));
         if (c < numCols - 1 && !square[r][c + 1].isVisited())
             list.add(new Coordinate(r, c + 1));
-        System.out.print(list);
+        System.out.print("Step 4.5: " + list + "\n");
         return list;
     }
 

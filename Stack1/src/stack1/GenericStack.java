@@ -33,13 +33,13 @@ public class GenericStack<E> {
         else {
             top++;
             data[top] = Coordinate;
-            System.out.println(Coordinate.toString() + " Popped on the stack.\n");
+            System.out.println("Step 1:" + Coordinate.toString() + " Pushed on the stack.\n");
             return true;
         }   
     }
     public E peek(){
      
-        System.out.println("Top = " + data[top].toString() + "\n");
+        System.out.println("Step 2: Top = " + data[top].toString() + "\n");
         
         return null;
     }

@@ -10,8 +10,7 @@ public class Main{
    GenericStack Stack = new GenericStack();
    
     public static void main(String[] args) {
-        Main maze = new Main();
-        
+               
         Scanner fromUser = new Scanner(System.in);
         System.out.print("How many rows for the maze? \n");
         int r = fromUser.nextInt();
@@ -24,20 +23,5 @@ public class Main{
         
         
     }
-
-    
-   
-    /*public String setCoordinates(int r, int c){
-        coords = (r + "," + c);
-        return(coords);
-        }
-
-    
-        public void newPush() {
-                
-        Stack.sCoords = coords;
-        Stack.push(coords);
-        }*/
-        
 }        
          

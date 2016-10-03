@@ -15,7 +15,7 @@ public class MazeSquare {
     private boolean[] wall = {false, false, false, false};
     private boolean visited; //and !visited
     private boolean abandoned; //and !abandoned
-    private Coordinate myPosition; //(Row x, and Column y)
+    Coordinate myPosition; //(Row x, and Column y)
     boolean[] defaultWallSet = {false, true, true, false}; // S, E walls up
     
     // new squares are built without walls
