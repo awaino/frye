@@ -11,6 +11,7 @@ public class Maze {
     private Coordinate startPos;
     private Coordinate finishPos;
     private Coordinate lastPos;
+    public Coordinate p ;
     private int numRows; 
     private int numCols; 
     GenericStack Stack = new GenericStack();
@@ -49,7 +50,7 @@ public class Maze {
         int min = 0;
         int max = numRows;
         Random rand = new Random();
-        int randomNum = rand.nextInt((max-min) +1) + min;
+        int randomNum = rand.nextInt(max-min) + min;
         return randomNum;
     }
        
@@ -94,7 +95,10 @@ public class Maze {
         if ((Math.abs(dist_col)==0)&&(Math.abs(dist_row)==0))return false;
         if ((Math.abs(dist_col)==1)&&(Math.abs(dist_row)==1))return false;
         
-        if (dist_row == -1)
+        //check if Coordinate to is abandoned
+        //if ()
+        
+       /* if (dist_row == -1)
             return !(this.getSquareAt(from).getWall(Direction.SOUTH) || (this.getSquareAt(to).getWall(Direction.NORTH))); //south
         if (dist_row == 1)
             return !(this.getSquareAt(from).getWall(Direction.NORTH) || (this.getSquareAt(to).getWall(Direction.SOUTH))); //north
@@ -102,32 +106,38 @@ public class Maze {
             return !(this.getSquareAt(from).getWall(Direction.WEST) || (this.getSquareAt(to).getWall(Direction.EAST))); //west
         if (dist_col == -1)
             return !(this.getSquareAt(from).getWall(Direction.EAST) || (this.getSquareAt(to).getWall(Direction.WEST))); //east
-        
+        */
         return true;  //check this later
     }
     public void genMaze(){
         Stack.push(startPos);
         Stack.peek();
-        Coordinate p = startPos;
+        p = startPos;
         System.out.println("Step 3: \n" + startPos);
         System.out.println("Step 4: \n" + p);
-        //do
+        do
         
-            moveP(p);
+            moveP();
             
-        //while (p.getRow() != finishPos.getRow() && p.getCol() != finishPos.getCol());
+        while (p.getRow() != finishPos.getRow() && p.getCol() != finishPos.getCol());
         System.out.println("Step 8: Current position is: " + p);
         System.out.println("Step 9: Current finish position is: " + finishPos);
     }
 
-    public void moveP(Coordinate p){        
+    public void moveP(){        
         
         ArrayList<Coordinate> unlist;
         unlist = unvisitedNeighbors(p);
         System.out.println("Step 5: " + unlist.size() + " available move locations.");
         System.out.println("Step 6: " + unlist.get(0) + " is the first available location.");
         System.out.println("Step 6.5: " + p + " is the current location.");
-       
+        
+        //random direction generator
+        int min = 0;
+        int max = unlist.size();
+        Random rand = new Random();
+        int randomNum = rand.nextInt(max-min +1) + min;
+        
         //if under two moves available, no moves available
         //pop the last coordinate and go back one spot.
         if (unlist.size() < 1){
@@ -141,107 +151,50 @@ public class Maze {
         //only 2 moves possible list 0,1
         else if (unlist.size() == 2){
             //System.out.println(unlist.size());
-            if (movePossible(p, (unlist.get(0)))) {
+            if (movePossible(p, (unlist.get(randomNum)))) {
+                System.out.println("Step 6: " + unlist.get(randomNum) + " is the random location.");
                 lastPos = p;
-                p = (unlist.get(0));
+                p = (unlist.get(randomNum));
                 System.out.println("Step 7: " +p);
                 removeWalls(lastPos, p);
                 Stack.push(p);
                 Stack.peek();
                 visitSquare(p);
             }
-            else if(movePossible(p, (unlist.get(1)))) {
-                lastPos = p;
-                p = (unlist.get(1));        
-                System.out.println("Step 7: " +p);
-                removeWalls(lastPos, p);        
-                Stack.push(p);
-                Stack.peek();
-                visitSquare(p);
-            }   
+            
         }
         //condition2 coordinates on outside egde
         //3 moves possible list 0,1,2
         else if (unlist.size() == 3){
             //System.out.println(unlist.size());
-            if (movePossible(p, (unlist.get(0)))) {
+            if (movePossible(p, (unlist.get(randomNum)))) {
+            System.out.println("Step 6: " + unlist.get(randomNum) + " is the random location.");
             lastPos = p;
-            p = (unlist.get(0));
+            p = (unlist.get(randomNum));
             System.out.println("Step 7: " +p);
             removeWalls(lastPos, p);
             Stack.push(p);
             Stack.peek();
             visitSquare(p);
-            return;
-            }
-            if(movePossible(p, (unlist.get(1)))) {
-            lastPos = p;
-            p = (unlist.get(1));        
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);        
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            return;
-            }
-            if (movePossible(p, (unlist.get(2)))) {
-            lastPos = p;
-            p = (unlist.get(2));
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            
             }
         }
         //condition3 inside coordinates
         //4 moves possible list 0,1,2,3
         else if(unlist.size() == 4){    
             //System.out.println(unlist.size());
-            if (movePossible(p, (unlist.get(0)))) {
+            if (movePossible(p, (unlist.get(randomNum)))) {
+            System.out.println("Step 6: " + unlist.get(randomNum) + " is the random location.");
             lastPos = p;
-            p = (unlist.get(0));
+            p = (unlist.get(randomNum));
             System.out.println("Step 7: " +p);
             removeWalls(lastPos, p);
             Stack.push(p);
             Stack.peek();
             visitSquare(p);
-            return;
             }
-            if(movePossible(p, (unlist.get(1)))) {
-            lastPos = p;
-            p = (unlist.get(1));        
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);        
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            return;
-            }
-            if (movePossible(p, (unlist.get(2)))) {
-            lastPos = p;
-            p = (unlist.get(2));
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            return;
-            }
-            if (movePossible(p, (unlist.get(3)))) {
-            lastPos = p;
-            p = (unlist.get(3));        
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            
-            } 
         }
     }
-    
+       
     private void removeWalls(Coordinate lastPos, Coordinate p){
         
         int dist_col= p.getCol() - lastPos.getCol();
