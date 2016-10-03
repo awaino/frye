@@ -57,7 +57,7 @@ public class Maze {
     public MazeSquare getSquareAt(Coordinate p){ 
     //Simple accessor method that returns the MazeSquare at the (r,c) position indicated by the provided Coordinate.
         return square[p.getRow()][p.getCol()];
-    
+    //getSquareAt(p).isAbandoned; for checking the boolean 
     }
     public void visitSquare(Coordinate p){
     //.visit() the MazeSquare at the indicated Coordinate p.
@@ -96,17 +96,9 @@ public class Maze {
         if ((Math.abs(dist_col)==1)&&(Math.abs(dist_row)==1))return false;
         
         //check if Coordinate to is abandoned
-        //if ()
         
-       /* if (dist_row == -1)
-            return !(this.getSquareAt(from).getWall(Direction.SOUTH) || (this.getSquareAt(to).getWall(Direction.NORTH))); //south
-        if (dist_row == 1)
-            return !(this.getSquareAt(from).getWall(Direction.NORTH) || (this.getSquareAt(to).getWall(Direction.SOUTH))); //north
-        if (dist_col == 1)
-            return !(this.getSquareAt(from).getWall(Direction.WEST) || (this.getSquareAt(to).getWall(Direction.EAST))); //west
-        if (dist_col == -1)
-            return !(this.getSquareAt(from).getWall(Direction.EAST) || (this.getSquareAt(to).getWall(Direction.WEST))); //east
-        */
+        if(getSquareAt(to).isAbandoned()== true)return false;
+        
         return true;  //check this later
     }
     public void genMaze(){
@@ -119,25 +111,23 @@ public class Maze {
         
             moveP();
             
-        while (p.getRow() != finishPos.getRow() && p.getCol() != finishPos.getCol());
+        while ((p.getRow() != finishPos.getRow()) && (p.getCol() != (finishPos.getCol()+1)));
         System.out.println("Step 8: Current position is: " + p);
         System.out.println("Step 9: Current finish position is: " + finishPos);
+        
     }
 
     public void moveP(){        
         
         ArrayList<Coordinate> unlist;
         unlist = unvisitedNeighbors(p);
-        System.out.println("Step 5: " + unlist.size() + " available move locations.");
-        System.out.println("Step 6: " + unlist.get(0) + " is the first available location.");
-        System.out.println("Step 6.5: " + p + " is the current location.");
         
         //random direction generator
-        int min = 0;
-        int max = unlist.size();
         Random rand = new Random();
-        int randomNum = rand.nextInt(max-min +1) + min;
+        int randomNum = rand.nextInt(unlist.size());
         
+        System.out.println("Step 5: " + unlist.size() + " available move locations.");
+        System.out.println("Step 6: " + p + " is the current location.");
         //if under two moves available, no moves available
         //pop the last coordinate and go back one spot.
         if (unlist.size() < 1){
@@ -147,52 +137,19 @@ public class Maze {
             p = lastPos;
         }
 
-        //condition1 coordinates at the 4 corners.
-        //only 2 moves possible list 0,1
-        else if (unlist.size() == 2){
-            //System.out.println(unlist.size());
-            if (movePossible(p, (unlist.get(randomNum)))) {
-                System.out.println("Step 6: " + unlist.get(randomNum) + " is the random location.");
-                lastPos = p;
-                p = (unlist.get(randomNum));
-                System.out.println("Step 7: " +p);
-                removeWalls(lastPos, p);
-                Stack.push(p);
-                Stack.peek();
-                visitSquare(p);
-            }
+        
+        if (movePossible(p, (unlist.get(randomNum)))) {
+            System.out.println("Step 6.5: " + unlist.get(randomNum) + " is the random location.");
+            lastPos = p;
+            p = (unlist.get(randomNum));
+            System.out.println("Step 7: The new position is: " + p);
+            removeWalls(lastPos, p);
+            Stack.push(p);
+            Stack.peek();
+            visitSquare(p);
+        }
             
-        }
-        //condition2 coordinates on outside egde
-        //3 moves possible list 0,1,2
-        else if (unlist.size() == 3){
-            //System.out.println(unlist.size());
-            if (movePossible(p, (unlist.get(randomNum)))) {
-            System.out.println("Step 6: " + unlist.get(randomNum) + " is the random location.");
-            lastPos = p;
-            p = (unlist.get(randomNum));
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            }
-        }
-        //condition3 inside coordinates
-        //4 moves possible list 0,1,2,3
-        else if(unlist.size() == 4){    
-            //System.out.println(unlist.size());
-            if (movePossible(p, (unlist.get(randomNum)))) {
-            System.out.println("Step 6: " + unlist.get(randomNum) + " is the random location.");
-            lastPos = p;
-            p = (unlist.get(randomNum));
-            System.out.println("Step 7: " +p);
-            removeWalls(lastPos, p);
-            Stack.push(p);
-            Stack.peek();
-            visitSquare(p);
-            }
-        }
+        
     }
        
     private void removeWalls(Coordinate lastPos, Coordinate p){
