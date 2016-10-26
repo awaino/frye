@@ -29,7 +29,7 @@ public class BinarySearchTree<E extends Comparable<E>>{
     }
     
     public void display(){
-        if(root==null){
+        if(root!=null){
             root.display(0);
         }
     }
@@ -63,25 +63,30 @@ public class BinarySearchTree<E extends Comparable<E>>{
             right = null;
         }
         
-        public BinarySearchTreeNode(E element, BinarySearchTreeNode<E> left, BinarySearchTreeNode<E> right){
-            this.element = element;
-            this.left = left;
-            this.right = right;
+        
+
+        private BinarySearchTreeNode(E element) {
+           this.element = element; 
         }
 
-        
         public void add(E element){
+            System.out.println("this.element = " + this.element);
+            System.out.println("element = " + element);
             if(this.element.compareTo(element) < 0){
-                if (left == null){
+                if (left.contains(null)){
                     left = new BinarySearchTreeNode<E>(element);
+                    System.out.println("Left = " + left);
                 }else{
-                    left.add(element);                
+                    left.add(element); 
+                    System.out.println("Left = " + left);
                 }
             }else if(this.element.compareTo(element) > 0){
-                if (right == null){
+                if (right.contains(null)){
                     right = new BinarySearchTreeNode<E>(element);
+                    System.out.println("Right = " + right);
                 }else{
                     right.add(element);
+                    System.out.println("Right = " + right);
                 }
             }else if(this.element.compareTo(element) == 0){
                     //No dupes
@@ -94,7 +99,7 @@ public class BinarySearchTree<E extends Comparable<E>>{
         } 
         
         public void display(int level){
-            System.out.println(" Node (Level " + level + "): " + this.element.toString());
+            System.out.println("Element (Level " + level + "): " + this.element.toString());
 
         if(left != null) {
             System.out.print("Left of " + this.element.toString());
@@ -118,6 +123,7 @@ public class BinarySearchTree<E extends Comparable<E>>{
         System.out.println("This is the random start element: " + element);
         do{
             create.add(element);
+            
         }while (create.size < 50);
         
         
