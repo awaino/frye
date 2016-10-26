@@ -6,13 +6,13 @@ public class BinarySearchTree<E extends Comparable<E>>{
     private int size;
     private BinarySearchTreeNode<E> root;
 
-    private BinarySearchTree() {
+    //constructor
+    
+    public BinarySearchTree() {
     
     }
-    
-    //constructor
        
-    private BinarySearchTreeNode<E> FirstElement(E element){
+    public BinarySearchTreeNode<E> FirstElement(E element){
         return new BinarySearchTreeNode<E>(element);
     }   
     
