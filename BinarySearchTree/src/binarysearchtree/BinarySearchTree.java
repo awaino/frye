@@ -11,8 +11,8 @@ public class BinarySearchTree<E extends Comparable<E>>{
     public BinarySearchTree(){
         size = 0;
         root = null;
-        
     }  
+    
     public boolean contains(E element){
         if(root ==null){
         return true;
@@ -54,8 +54,6 @@ public class BinarySearchTree<E extends Comparable<E>>{
             right = null;
         }
         
-        
-
         private BinarySearchTreeNode(E element) {
            this.element = element; 
         }
@@ -117,7 +115,7 @@ public class BinarySearchTree<E extends Comparable<E>>{
         if(right != null) {
             System.out.print("Right of " + this.element.toString());
             right.display(level + 1);
-        }
+            }
         }
     
     }
@@ -126,19 +124,13 @@ public class BinarySearchTree<E extends Comparable<E>>{
            
         BinarySearchTree<Integer> create = new BinarySearchTree<Integer>();
         
-        
-        
-        //System.out.println("This is the random start element: " + element);
         do{
             Integer element = create.randInput();
             //System.out.println("Random number generated is: " +element);
             create.add(element);
             
         }while (create.size < 50);
-        
-        
-        System.out.println("Size = " + create.size);
-        
+                
         create.display();
     }
 
