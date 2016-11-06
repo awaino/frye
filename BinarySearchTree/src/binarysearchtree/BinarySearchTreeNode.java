@@ -102,14 +102,11 @@ public class BinarySearchTreeNode<E extends Comparable<E>>{
             return false;
         }
         if (root.element.compareTo(input)== 0){
-            //System.out.println("True");
             return true;
         }
         if (root.element.compareTo(input) > 0){
-            //System.out.println("False, left loop");   
             return findElement(root.left, input);
         }else
-            //System.out.println("False, right loop");
             return findElement(root.right, input);
     }
     
@@ -120,77 +117,77 @@ public class BinarySearchTreeNode<E extends Comparable<E>>{
         
         boolean isLeftChild = false;
         while(current.element!=input){
-                parent = current;
-                if(current.element.compareTo(input)> 0){
-                        isLeftChild = true;
-                        current = current.left;
-                }else{
-                        isLeftChild = false;
-                        current = current.right;
-                }
-                if(current == null){
-                        return false;
-                }
+            parent = current;
+            if(current.element.compareTo(input)> 0){
+                isLeftChild = true;
+                current = current.left;
+            }else{
+                isLeftChild = false;
+                current = current.right;
+            }
+            if(current == null){
+                return false;
+            }
         }
         //Case 1
         if(current.left==null && current.right==null){
-                if(current==root){
-                        root = null;
-                }
-                if(isLeftChild ==true){
-                        parent.left = null;
-                }else{
-                        parent.right = null;
-                }
+            if(current==root){
+                root = null;
+            }
+            if(isLeftChild ==true){
+                parent.left = null;
+            }else{
+                parent.right = null;
+            }
         }
         //Case 2
         else if(current.right==null){
-                if(current==root){
-                        root = current.left;
-                }else if(isLeftChild){
-                        parent.left = current.left;
-                }else{
-                        parent.right = current.left;
-                }
+            if(current==root){
+                    root = current.left;
+            }else if(isLeftChild){
+                parent.left = current.left;
+            }else{
+                parent.right = current.left;
+            }
         }
         else if(current.left==null){
-                if(current==root){
-                        root = current.right;
-                }else if(isLeftChild){
-                        parent.left = current.right;
-                }else{
-                        parent.right = current.right;
-                }
+            if(current==root){
+                    root = current.right;
+            }else if(isLeftChild){
+                parent.left = current.right;
+            }else{
+                parent.right = current.right;
+            }
         }else if(current.left!=null && current.right!=null){
-                BinarySearchTreeNode<E> successor = getSuccessor(current);
-                if(current==root){
-                        root = successor;
-                }else if(isLeftChild){
-                        parent.left = successor;
-                }else{
-                        parent.right = successor;
-                }			
-                successor.left = current.left;
-            }		
+            BinarySearchTreeNode<E> successor = getSuccessor(current);
+            if(current==root){
+                root = successor;
+            }else if(isLeftChild){
+                parent.left = successor;
+            }else{
+                parent.right = successor;
+            }			
+            successor.left = current.left;
+        }		
         //Case 3    
         return true;		
     }
 
     //promote element
     public BinarySearchTreeNode<E> getSuccessor(BinarySearchTreeNode<E> deleteElement){
-            BinarySearchTreeNode<E> successsor =null;
-            BinarySearchTreeNode<E> successsorParent =null;
-            BinarySearchTreeNode<E> current = deleteElement.right;
-            while(current!=null){
-                    successsorParent = successsor;
-                    successsor = current;
-                    current = current.left;
-            }
-            
-            if(successsor!=deleteElement.right){
-                    successsorParent.left = successsor.right;
-                    successsor.right = deleteElement.right;
-            }
+        BinarySearchTreeNode<E> successsor =null;
+        BinarySearchTreeNode<E> successsorParent =null;
+        BinarySearchTreeNode<E> current = deleteElement.right;
+        while(current!=null){
+            successsorParent = successsor;
+            successsor = current;
+            current = current.left;
+        }
+
+        if(successsor!=deleteElement.right){
+            successsorParent.left = successsor.right;
+            successsor.right = deleteElement.right;
+        }
         return successsor;
     }
     
@@ -198,21 +195,17 @@ public class BinarySearchTreeNode<E extends Comparable<E>>{
     public ArrayList<E> elementTreeSort(){
         //perform in order traversal adding to the ArrayList
         if(left != null) {
-        elementList1.addAll(left.elementTreeSort());
+            elementList1.addAll(left.elementTreeSort());
         }
-        
         elementList1.add(this.element);
-        
         if(right != null) {
-        elementList1.addAll(right.elementTreeSort());    
+            elementList1.addAll(right.elementTreeSort());    
         }  
-              
         return elementList1;
     }
     
     //Print the ArrayList elements
     public void elementListPrint(){
-        //print the elements in the ArrayList
         for (int i = 0; i < elementList1.size(); i++){
             System.out.println("ArrayList element " +(i+1) +": "+ elementList1.get(i));
         }
