@@ -12,11 +12,9 @@ public class Driver {
         //Fill the tree with random numbers from 1 to 100
         do{
             Integer element = create.randInput();
-            //System.out.println("Random number generated is: " +element);
             create.add(element);
-
         }while (BinarySearchTree.size < 30); //change number to change total elements of the tree
-        //System.out.println("Size = "+BinarySearchTree.size);
+        
         
         //Traversals
         System.out.println("\nDisplaying contents and location \nof the Binary Search Tree Elements.\n");
