@@ -31,10 +31,11 @@ public class Driver {
         Scanner fromUser = new Scanner(System.in);
         System.out.print("Please input Integer from 1 to 100 to locate: \n");
         
-        //Send the test to the input string
+        //Send the text to the input string and then find it
         create.input = fromUser.nextInt();
         System.out.println("Integer entered is: " + create.input +"\n");
-
+        
+        //If it exists in the tree, delete it
         if (create.findElement(create.input)){
             System.out.println("Integer " + create.input+ " found\n");
             System.out.println("Deleting Integer: " + create.input);
@@ -42,6 +43,7 @@ public class Driver {
             System.out.println("\nNew in-order traversal:");
             create.inOrderTraversal();
         
+        //If it does not exit in the tree
         }else{
             System.out.println("Integer " +create.input+ " not found");
         }  
