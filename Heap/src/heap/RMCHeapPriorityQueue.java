@@ -6,153 +6,131 @@ public class RMCHeapPriorityQueue<E extends Comparable <E>> {
 
     private E[] data;
     private int size = 0;
-    public int i = 0;
-    public int a, b = 0;
+    public int i, a, b = 0;
     private int initialCapacity = 11;
-    public int leftChildOf = 0;
-    public int rightChildOf = 0;
-    public int parentOf = 0;
-    public int root = 0;
     public E tmp = null;
 
     public RMCHeapPriorityQueue() {
-        data = (E[]) new Comparable[initialCapacity];
         
-    }
+        data = (E[]) new Comparable[initialCapacity];
+    }    
 
-    public int randInput(){
+    public int randInput(){  //generate random numbers to fill array
+        
         int min = 1;
-        int max = 100;
+        int max = 10000;
         Random rand = new Random();
         int randomNum = rand.nextInt(max-min) + min;
         return randomNum;
     }
-
-    public E peek() {
+    
+    public int leftChildOf(int i){
+        
+        return(2*i) +1;
+    }
+    
+    public int rightChildOf(int i){
+        
+        return(2*i) +2;
+    }
+    
+    public int parentOf(int i){
+        
+        return(i-1)/2;
+    }
+    
+    public E peek() { //Peek at data[0]
+        
+        System.out.println("Heap top = " + data[0]);
         return data[0];
     }
 
-    public E delete(E top) {
+    public E Pop(E top) { //Pop from highest to lowest
+        
         if (size != 0){
-            top = data[1];
-            data[1] = data[size--];
-            percolateUp(a,b);   
+            i = 0;
+            size--;
+            top = data[0];
+            data[0] = data[size];
+            data[size] = top;
+            percolateDown(0);
         }return top;
     }
 
-    public void add(E element) {
-        //System.out.println("Size = " + size);
-        //System.out.println("data.length = " + data.length);
-        //System.out.println("i = " + i );
-        if (i == data.length) {
-            growArray(initialCapacity);
+    public void add(E element) { //Add element then percolate up
+        
+        if (size == data.length) {
+            growArray();
         }
         else{
-            
             data[i] = element;
-            System.out.println("Element " + i + " = " + element);
+            percolateUp(i);
             i++;
             size++;
         }
-
-    }
-    
-    public void buildHeapUp(){
-       for (i = ((size/2)-1); i>=0; i--)
-           percolateUp(a,b);         
-        
-    }
-    
-    public void buildHeapDown(){
-       for (i = ((size/2)-1); i>=0; i--)
-           percolateDown(a,b);         
-        
     }
     
     public int size() {
+        
         return size;
     }
 
-    private void swap(int a, int b) {
-        System.out.println("Swap A = " + data[a]);
-        System.out.println("Swap B = " + data[b]);
+    private void swap(int a, int b) { //Swap provided elements 
+        
         tmp = data[a];
         data[a] = data[b];
         data[b] = tmp;
-        System.out.println("After swap A = " + data[a]);
-        System.out.println("After swap B = " + data[b]);
+    }
+
+    private void percolateUp(int i) { //Percolate up if parent is smaller
+           
+        if(parentOf(i)< 0)
+            return;
+        if(data[i].compareTo(data[parentOf(i)]) > 0){
+            swap(i, parentOf(i));
+            percolateUp(parentOf(i));
+        }
+    }
+
+    private void percolateDown(int i) { //Percolate down 3 cases
         
-    }
-
-    private void percolateUp(int a, int b) {
-        root = i;
-        int leftChildOf = ((2*root) + 1);
-        int rightChildOf = ((2*root) + 2);
-        System.out.println("Root = " + data[root]); 
-        System.out.println("Left Child = " + data[leftChildOf]); 
-        System.out.println("Right Child = " + data[rightChildOf]);
-         
-        if (data[rightChildOf] != null){
-            if(data[root].compareTo(data[rightChildOf]) < 0){
-            a = root;
-            b = rightChildOf;
-            swap(a,b);
-            percolateUp(a, b);
+        if(rightChildOf(i) < size){
+            if(data[i].compareTo(data[rightChildOf(i)]) < 0){
+                swap(i, rightChildOf(i));
+                percolateDown(rightChildOf(i));
+            }   //case 1
+        }    
+        if(leftChildOf(i) < size){
+            if(data[i].compareTo(data[leftChildOf(i)]) < 0){
+                swap(i, leftChildOf(i));
+                percolateDown(leftChildOf(i));
+            }   //case2
         }
-        if(data[leftChildOf] !=null) {
-            if(data[root].compareTo(data[leftChildOf]) < 0){
-                a = root;
-                b = leftChildOf;
-                swap(a,b);
-                percolateUp(a, b);
-                }
-            }
-        }  
-    }
-
-    private void percolateDown(int a, int b) {
-        root = i;
-        int leftChildOf = ((2*i) + 1);
-        int rightChildOf = ((2*i) + 2);
-        System.out.println("Root = " + data[root]);
-        System.out.println("Left Child = " + data[leftChildOf]);
-        System.out.println("Right Child = " + data[rightChildOf]);
-    
-        if (data[rightChildOf] != null){
-            if(data[root].compareTo(data[rightChildOf]) > 0){
-            a = root;
-            b = rightChildOf;
-            swap(a,b);
-            percolateDown(a, b);
-        }
-        if(data[leftChildOf] !=null) {
-            if(data[root].compareTo(data[leftChildOf]) > 0){
-                a = root;
-                b = leftChildOf;
-                swap(a,b);
-                percolateDown(a, b);
-                }
-            }
-        }
+        
+        if(leftChildOf(i) == size){
+            return; //i is a leaf
+        }   //case 3
     }
     
 
-    private void growArray(int initialCapacity) {
-        if (i == data.length) { //grow array
+    private void growArray() { //Grow array once end of array is reached
+        
+        if (size == data.length) { //grow array
             E[] old = data;
             data = (E[]) new Comparable[initialCapacity *2];
             System.arraycopy(old, 0, data, 0, size);
             initialCapacity = data.length;
-            System.out.println("Initial Capacity now = " + initialCapacity);
-            
         }
     }
 
     
-    public void printHeap(){
+    public void printHeap(){ //Print array
+        
         System.out.print("Heap contains = ");
-        for (int i = 0; i < size; i++)
-            System.out.print(data[i] +" ");
+        for (int i = 0; i < data.length; i++)
+            if (data[i] != null){
+              System.out.print(data[i] +" ");  
+            }
         System.out.println();
     }
 }
