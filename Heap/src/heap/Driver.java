@@ -18,9 +18,13 @@ public class Driver {
         }
         
         while(queue.size() != 0){
+            
             queue.Pop(queue.i);
         }
          
         queue.peek(); //View data[0] just to make sure there is data in the array when finished
+        if (queue.i < 20){
+            queue.printHeap();
+        }
     }
 }
