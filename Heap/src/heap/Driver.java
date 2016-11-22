@@ -1,29 +1,41 @@
 package heap;
 
 public class Driver {
-
+        
     public static void main(String[] args) {
 
         RMCHeapPriorityQueue<Integer> queue = new RMCHeapPriorityQueue<>();
         
         int foo = Integer.parseInt(args[0]);
         
-        do{
+        
+        for (queue.i = 0; queue.i < foo; queue.i++){ //create heap with random numbers
             Integer element = queue.randInput();
-            queue.add(element);
-        }while (queue.i <foo); //change number to change total elements of the heap
-
-        if (queue.i < 20){
+            queue.add(queue.i, element);
+            queue.incrementSize();
+        }
+        
+        if (foo < 20){
             queue.printHeap();
         }
         
-        while(queue.size() != 0){
-            
-            queue.Pop(queue.i);
+        for (int j = queue.size / 2 ; j >= 0; j--) { // create heaped array
+            queue.heap(j);
         }
-         
+        
+        System.out.println("Number of elements = " + foo);
+        
+        if (foo < 20){
+            queue.printHeap();
+        }
+        System.out.println("size = " + queue.size());
+        
+        
+        queue.heapSort(); //create sorted array
+        
         queue.peek(); //View data[0] just to make sure there is data in the array when finished
-        if (queue.i < 20){
+        
+        if (foo < 20){
             queue.printHeap();
         }
     }

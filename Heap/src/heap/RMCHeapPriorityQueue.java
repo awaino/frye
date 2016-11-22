@@ -5,17 +5,18 @@ import java.util.Comparator;
 public class RMCHeapPriorityQueue<E extends Comparable <E>> {
 
     private E[] data;
-    private int size = 0;
+    public int size = 0;
     public int i, a, b = 0;
-    private int initialCapacity = 11;
+    private int initialCapacity = 23;
     public E tmp = null;
+    public static int pd_count = 0;
 
     public RMCHeapPriorityQueue() {
         
         data = (E[]) new Comparable[initialCapacity];
     }    
 
-    public int randInput(){  //generate random numbers to fill array
+    public int randInput(){  //Generate random numbers to fill array
         
         int min = 1;
         int max = 10000;
@@ -45,74 +46,62 @@ public class RMCHeapPriorityQueue<E extends Comparable <E>> {
         return data[0];
     }
 
-    public E Pop(E top) { //Pop from highest to lowest
-        
-        if (size != 0){
-            i = 0;
-            size--;
-            top = data[0];
-            data[0] = data[size];
-            data[size] = top;
-            percolateDown(0);
-        }return top;
-    }
-
-    public void add(E element) { //Add element then percolate up
-        
+    public void incrementSize(){ //increment size, grow array if needed
+        size++;
         if (size == data.length) {
             growArray();
         }
-        else{
-            data[i] = element;
-            percolateUp(i);
-            i++;
-            size++;
-        }
     }
     
-    public int size() {
+    public void add(int i, E element) { //add element
+        
+            data[i] = element;
+    }
+    
+    public int size() { //return size
         
         return size;
     }
+    
+    public E pop(){ //pop the top of the tree to the end of the array 
+        if (size != 0){
+            E root = data[0];
+            data[0] = data[--size];
+            heap(0); //then shuffle
+            return root;
+        }return null;
+    }        
+    
+    public void heap(int i) { //shuffle elements around for heaped array
+        int largestChild;
+	E root = data[i];	
 
-    private void swap(int a, int b) { //Swap provided elements 
-        
-        tmp = data[a];
-        data[a] = data[b];
-        data[b] = tmp;
-    }
+	while (i < size / 2) {	
+            int leftChild =  leftChildOf(i);
+            int rightChild = rightChildOf(i);
+                
+            if (rightChild < size && data[leftChild].compareTo(data[rightChild]) < 0){
+                largestChild = rightChild;				
+            } else {
+                largestChild = leftChild;			
+            }		
 
-    private void percolateUp(int i) { //Percolate up if parent is smaller
-           
-        if(parentOf(i)< 0)
-            return;
-        if(data[i].compareTo(data[parentOf(i)]) > 0){
-            swap(i, parentOf(i));
-            percolateUp(parentOf(i));
+            if (root.compareTo(data[largestChild]) >= 0)
+                break;		
+            
+            data[i] = data[largestChild];
+            i = largestChild;
         }
-    }
-
-    private void percolateDown(int i) { //Percolate down 3 cases
-        
-        if(rightChildOf(i) < size){
-            if(data[i].compareTo(data[rightChildOf(i)]) < 0){
-                swap(i, rightChildOf(i));
-                percolateDown(rightChildOf(i));
-            }   //case 1
-        }    
-        if(leftChildOf(i) < size){
-            if(data[i].compareTo(data[leftChildOf(i)]) < 0){
-                swap(i, leftChildOf(i));
-                percolateDown(leftChildOf(i));
-            }   //case2
-        }
-        
-        if(leftChildOf(i) == size){
-            return; //i is a leaf
-        }   //case 3
+	data[i] = root;
     }
     
-
+    public void heapSort(){ // Sort entire array from lowest to highest
+        for (int k = size-1; k >= 0; k--){
+            E largestNode = pop();
+            add(k, largestNode);
+        }
+    }
+    
     private void growArray() { //Grow array once end of array is reached
         
         if (size == data.length) { //grow array
@@ -123,7 +112,6 @@ public class RMCHeapPriorityQueue<E extends Comparable <E>> {
         }
     }
 
-    
     public void printHeap(){ //Print array
         
         System.out.print("Heap contains = ");
