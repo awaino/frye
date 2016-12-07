@@ -32,14 +32,18 @@ public class Driver {
         
         Scanner fromUser = new Scanner(System.in);
         System.out.print("Please make selection: ");
-        int selection = fromUser.nextInt();
-        
+        int selection = 0;
+        while(!fromUser.hasNextInt()){
+            System.out.println("\nInvalid entry please try program again.");
+            return;
+        }
+        selection = fromUser.nextInt();        
         while (selection != 4){
             if (selection == 1){
                 System.out.println("Word list\n");
                 System.out.println("Enter Document ID number (0 to 299): ");
                 while (!fromUser.hasNextInt()){
-                    System.out.println("Invalid entry, please try again.");
+                    System.out.println("Invalid entry, please try program again.");
                     return;
                 }
                 int docSelection = fromUser.nextInt();

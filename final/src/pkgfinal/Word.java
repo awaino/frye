@@ -242,14 +242,4 @@ public class Word<Word extends Comparable<Word>>{
             System.out.println("foo2 element " +(i) +": "+ foo2.get(i));
         }
     }    
-        
-        
-            
-            
-            
-            
-           
-
-
-    
-}
+ }
