@@ -30,14 +30,20 @@ public class Word<Word extends Comparable<Word>>{
 
     //Method to import the Words
     
-    public void addWord(Word stem){
+    public void addWord(String wordPath) throws FileNotFoundException{
+        Word stem = null;
+        File words = new File(wordPath);  
+        Scanner scnr1 = new Scanner(words);
         
-        if (wordList.isEmpty()){  //Create a dummy 0 element
-            wordList.add(0, null);
+        while (scnr1.hasNext()){
+            stem = (Word) scnr1.next();
+            if (wordList.isEmpty()){  //Create a dummy 0 element
+                wordList.add(0, null);
             }
-        if(wordList.get(0) == null){  //Add the words starting at element 1
-            wordList.add(wordNumber, stem);                  
-            wordNumber++;
+            if(wordList.get(0) == null){  //Add the words starting at element 1
+                wordList.add(wordNumber, stem);                  
+                wordNumber++;
+            }
         }
     }
     
@@ -121,7 +127,7 @@ public class Word<Word extends Comparable<Word>>{
     */
     public void occursWith(Word input){
         if (wordsTm.containsValue(input)){
-            System.out.println("Word exists in TreeMap");
+            System.out.println("Word exists in Words used TreeMap");
             int q = (int) getKeyFromValue (wordsTm, input);
             Word wordTemp = wordList.get(q);
             Scanner scnr = new Scanner((String) wordTemp);

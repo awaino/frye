@@ -1,6 +1,5 @@
 package pkgfinal;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -13,17 +12,15 @@ public class Driver {
         String docPath = args[1];
         
         Word w = new Word();
-        File words = new File(wordPath);  
-        Scanner scnr1 = new Scanner(words);
         
-        while (scnr1.hasNext()){
-            String stem = scnr1.next();
-            w.addWord(stem);
-        }
-              
+        w.addWord(wordPath);
         w.createWordList(docPath);
         w.createDoclist();
-       
+        menu(w);
+           
+    }
+ 
+    public static void menu(Word w){
         System.out.println("Final Project Menu\n");
         System.out.println("Press 1 for the Wordlist\n");
         System.out.println("Press 2 for the Doclist\n");
@@ -39,7 +36,8 @@ public class Driver {
         }
         selection = fromUser.nextInt();        
         while (selection != 4){
-            if (selection == 1){
+            switch(selection){
+                case 1:{
                 System.out.println("Word list\n");
                 System.out.println("Enter Document ID number (0 to 299): ");
                 while (!fromUser.hasNextInt()){
@@ -55,27 +53,29 @@ public class Driver {
                 }
                 else{
                     System.out.println("Document number out of range, "
-                            + "please try again.");
+                            + "please try the program again.");
+                    return;
+                    }
                 }
-            }
             
-            if (selection == 2){
+                case 2:{
                 System.out.println("Document list\n");
                 System.out.println("Enter the Word: ");
                 String wordSelection = null;
                 wordSelection = fromUser.next();
                 System.out.println("Word is: " +wordSelection);
                 if (w.wordExists(wordSelection)){
-                    System.out.println("Word is used in these documents:" 
-                            + w.wordList.get(w.getWord(wordSelection)));
+                    String docPrint = (String) w.wordList.get(w.getWord(wordSelection));
+                    System.out.println("Word is used in these documents: " 
+                            + docPrint);
                 }else{
                     System.out.println("Word is not used in any of the "
                             + "documents provided.");
                 }
                 return;
-            }
+                }
             
-            if (selection == 3){
+                case 3:{
                 System.out.println("Occurs with"); 
                 System.out.println("Enter the Word: ");
                 String wordOccurs = fromUser.next();
@@ -83,7 +83,12 @@ public class Driver {
                 
                 w.occursWith(wordOccurs);
                 return;
-            }
-        }   
+                }
+            
+                default:{
+                    System.out.println("Invalid entry");
+                }
+            }    
+        }
     }
- }
+}
