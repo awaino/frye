@@ -49,8 +49,8 @@ public class Word<Word extends Comparable<Word>>{
     the key back for the Words(value)location in the wordList ArrayList.
      */
     
-    public void createWordList() throws FileNotFoundException{
-        File documents = new File("d:/workspace/java/documents.txt");  
+    public void createWordList(String docPath) throws FileNotFoundException{
+        File documents = new File(docPath);  
         String tempDoc = "";
         Scanner scnr = new Scanner(documents);
         while (scnr.hasNextLine()){

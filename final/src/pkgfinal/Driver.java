@@ -9,8 +9,11 @@ public class Driver {
     
     public static void main(String[] args) throws FileNotFoundException {
         
+        String wordPath = args[0];
+        String docPath = args[1];
+        
         Word w = new Word();
-        File words = new File("d:/workspace/java/words.txt");  
+        File words = new File(wordPath);  
         Scanner scnr1 = new Scanner(words);
         
         while (scnr1.hasNext()){
@@ -18,7 +21,7 @@ public class Driver {
             w.addWord(stem);
         }
               
-        w.createWordList();
+        w.createWordList(docPath);
         w.createDoclist();
        
         System.out.println("Final Project Menu\n");
